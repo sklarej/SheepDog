@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4" 
+    UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
+    Name="SheepDog" Language="1033" Version="0.9.0.0"
+    Manufacturer="Josh Sklare" >
+    <Package InstallerVersion="200" Compressed="yes" 
+             Description="SheepDog" 
+             Comments="This is the setup package for SheepDog.  SheepDog is a free utility for repositioning off-screen windows.  Learn more at http://www.codeplex.com/SheepDog" />
+
+    <Media Id="1" Cabinet="SheepDogSetUp.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="SheepDog">
+          <Component Id="ProductComponent" Guid="A9B22BF7-2056-4a20-8ED1-82B3850387C0">
+            <File Id="SheepDog.exe" Name="SheepDog.exe" Source="..\SheepDog\bin\debug\">
+              <Shortcut
+                Id="SheepDogStartupShortcut"
+                Directory="StartupFolder"
+                Name="SheepDog"
+                WorkingDirectory="INSTALLLOCATION"
+                Advertise="yes"
+                Icon="SheepDog.exe">
+              </Shortcut>
+              <Shortcut
+                Id="SheepDogProgramMenuShortcut"
+                Directory="SheepDogProgramMenuFolder"
+                Name="SheepDog"
+                WorkingDirectory="INSTALLLOCATION"
+                Advertise="yes"
+                Icon="SheepDog.exe">
+                <Icon Id="SheepDog.exe" SourceFile="..\SheepDog\bin\debug\SheepDog.exe"/>
+              </Shortcut>
+            </File>
+            <File Id="readme.txt" Name="readme.txt" Source="..\Documentation\"/>
+
+            <RemoveFolder Id="RemoveShorcutFolder"
+              On="uninstall" Directory="SheepDogProgramMenuFolder"/>
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="PMenu">
+        <Directory Id="StartupFolder" >
+        </Directory>
+
+        <Directory Id="SheepDogProgramMenuFolder" Name="SheepDog">
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="SheepDog" Level="1">
+      <ComponentRef Id="ProductComponent" />
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+
+    <WixVariable Id='WixUILicenseRtf' Value='License.rtf' />
+
+    <UIRef Id="WixUI_InstallDir"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="WixCloseApplications" Before="InstallInitialize" />
+    </InstallExecuteSequence>
+
+    <CustomAction
+      Id="StartAppOnExit"
+      FileKey="SheepDog.exe"
+      ExeCommand=""
+      Execute="immediate"
+      Impersonate="yes"
+      Return="asyncNoWait" />
+
+    <util:CloseApplication
+      Id="CloseSheepDog"
+      CloseMessage="yes"
+      Target="SheepDog.exe"
+      RebootPrompt="no"
+      Description="SheepDog is running and needs to be closed"/>
+
+    <Property Id="STARTAPPONEXIT" Value="TRUE"/>
+
+    <UI>
+      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="StartAppOnExit">STARTAPPONEXIT</Publish>
+    </UI>
+
+  </Product>
+</Wix>
