@@ -1,29 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MIT License
+  Copyright (c) 2008 Josh Sklare
+  http://www.codeplex.com/SheepDog
+
+  Permission is hereby granted, free of charge, to any person obtaining
+  a copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to
+  permit persons to whom the Software is furnished to do so, subject to
+  the following conditions:
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+      -->
+<!--
+  This is the file which defines the setup package for SheepDog.  It's
+  been tested with WiX 3.0.4624.0 (available at 
+  http://wix.sourceforge.net/releases/3.0.4624.0/).  The SheepDogSetup
+  solution can be built within Visual Studio 2008 if you have WiX Votive
+  installed (Votive is installed when you install Wix3.msi).
+-->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4" 
-    UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
-    Name="SheepDog" Language="1033" Version="0.9.0.0"
-    Manufacturer="Josh Sklare" >
-    <Package InstallerVersion="200" Compressed="yes" 
-             Description="SheepDog" 
+           UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
+           Name="SheepDog"
+           Language="1033"
+           Version="0.9.0.0"
+           Manufacturer="Josh Sklare" >
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             Description="SheepDog"
              Comments="This is the setup package for SheepDog.  SheepDog is a free utility for repositioning off-screen windows.  Learn more at http://www.codeplex.com/SheepDog" />
 
     <Media Id="1" Cabinet="SheepDogSetUp.cab" EmbedCab="yes" />
 
+    <Feature Id="ProductFeature" Title="SheepDog" Level="1">
+      <ComponentRef Id="ProductComponent" />
+    </Feature>
+
+    <!--
+      Defines all the files, directories, and shortucts installed with SheepDog.
+    -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLLOCATION" Name="SheepDog">
           <Component Id="ProductComponent" Guid="A9B22BF7-2056-4a20-8ED1-82B3850387C0">
-            <File Id="SheepDog.exe" Name="SheepDog.exe" Source="..\SheepDog\bin\debug\">
+            <File
+              Id="SheepDog.exe"
+              Name="SheepDog.exe"
+              Source="..\SheepDog\bin\debug\">
               <Shortcut
                 Id="SheepDogStartupShortcut"
                 Directory="StartupFolder"
                 Name="SheepDog"
                 WorkingDirectory="INSTALLLOCATION"
                 Advertise="yes"
-                Icon="SheepDog.exe">
-              </Shortcut>
+                Icon="SheepDog.exe"/>
               <Shortcut
                 Id="SheepDogProgramMenuShortcut"
                 Directory="SheepDogProgramMenuFolder"
@@ -34,37 +77,52 @@
                 <Icon Id="SheepDog.exe" SourceFile="..\SheepDog\bin\debug\SheepDog.exe"/>
               </Shortcut>
             </File>
-            <File Id="readme.txt" Name="readme.txt" Source="..\Documentation\"/>
+            <File
+              Id="readme.txt"
+              Name="readme.txt"
+              Source="..\Documentation\"/>
 
-            <RemoveFolder Id="RemoveShorcutFolder"
-              On="uninstall" Directory="SheepDogProgramMenuFolder"/>
+            <RemoveFolder
+              Id="RemoveShorcutFolder"
+              On="uninstall"
+              Directory="SheepDogProgramMenuFolder"/>
           </Component>
         </Directory>
       </Directory>
 
       <Directory Id="ProgramMenuFolder" Name="PMenu">
-        <Directory Id="StartupFolder" >
-        </Directory>
-
-        <Directory Id="SheepDogProgramMenuFolder" Name="SheepDog">
-        </Directory>
+        <Directory Id="StartupFolder"/>
+        <Directory Id="SheepDogProgramMenuFolder" Name="SheepDog"/>
       </Directory>
     </Directory>
 
-    <Feature Id="ProductFeature" Title="SheepDog" Level="1">
-      <ComponentRef Id="ProductComponent" />
-    </Feature>
-
-    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
-
+    <!--
+      Loads in the custom license that is displayed when installing SheepDog.
+      -->
     <WixVariable Id='WixUILicenseRtf' Value='License.rtf' />
 
+    <!--
+      Loads in the UI provided with WiX that allows the user to choose the
+      directory to install to.
+      -->
     <UIRef Id="WixUI_InstallDir"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
 
-    <InstallExecuteSequence>
-      <Custom Action="WixCloseApplications" Before="InstallInitialize" />
-    </InstallExecuteSequence>
+    <!--
+      This custom action ensures that SheepDog is closed before the installation is
+      upgraded, repaired, or uninstalled.
+      -->
+    <util:CloseApplication
+      Id="CloseSheepDog"
+      CloseMessage="yes"
+      Target="SheepDog.exe"
+      RebootPrompt="no"
+      Description="SheepDog is running and needs to be closed"/>
 
+    <!--
+      This custom action ensures that the application is started after an installation
+      is finished.
+      -->
     <CustomAction
       Id="StartAppOnExit"
       FileKey="SheepDog.exe"
@@ -73,18 +131,13 @@
       Impersonate="yes"
       Return="asyncNoWait" />
 
-    <util:CloseApplication
-      Id="CloseSheepDog"
-      CloseMessage="yes"
-      Target="SheepDog.exe"
-      RebootPrompt="no"
-      Description="SheepDog is running and needs to be closed"/>
-
-    <Property Id="STARTAPPONEXIT" Value="TRUE"/>
-
-    <UI>
-      <Publish Dialog="ExitDialog" Control="Finish" Order="1" Event="DoAction" Value="StartAppOnExit">STARTAPPONEXIT</Publish>
-    </UI>
-
+    <!--
+      Defines the custom actions for starting and stopping SheepDog in the 
+      install sequence.
+      -->
+    <InstallExecuteSequence>
+      <Custom Action="WixCloseApplications" Before="InstallInitialize" />
+      <Custom Action="StartAppOnExit" After="InstallFinalize" />
+    </InstallExecuteSequence>
   </Product>
 </Wix>
