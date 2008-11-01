@@ -1,0 +1,35 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{2b0aa14e-7d46-4b99-b41a-de15356f92ab}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>SheepDogSetup</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>C:\Program Files\Windows Installer XML v3\bin\</WixToolPath>
+    <Cultures>en-US</Cultures>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <Cultures>en-US</Cultures>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <IntermediateOutputPath>obj\Release\</IntermediateOutputPath>
+    <Cultures>en-US</Cultures>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="SheepDogSetup.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>C:\Program Files\Windows Installer XML v3\bin\WixUIExtension.dll</HintPath>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>C:\Program Files\Windows Installer XML v3\bin\WixUtilExtension.dll</HintPath>
+    </WixExtension>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WiX\v3.0\Wix.targets" />
+</Project>
