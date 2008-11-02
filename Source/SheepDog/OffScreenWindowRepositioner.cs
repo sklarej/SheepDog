@@ -41,7 +41,7 @@ namespace SheepDog
 	public static class OffScreenWindowRepositioner
 	{
 		/// <summary>
-		/// Number of pixels that a window is allowed to be offscreen before
+		/// Number of pixels that a window is allowed to be off-screen before
 		/// this class consider it for repositioning.  This prevents repositioning
 		/// of windows that are right over the edge of the screen (ones that the
 		/// user wouldn't have a problem repositioning if they wanted to.
@@ -75,48 +75,43 @@ namespace SheepDog
 		/// <summary>
 		/// Indicates whether a portion of the specified window resides off-screen.
 		/// </summary>
-		/// <remarks>
-		/// This logic works fine for 1 screen, and for multi-monitor setups where
-		/// the screens are in a rectangular setup.  It can be improved for 
-		/// multi-monitor configurations where the screens are offset from each other.
-		/// </remarks>
 		public static Boolean IsWindowOffScreen(Window window)
 		{
 			Rectangle windowRectangle = window.ScreenRectangle;
 
+			//Ignore certain hidden windows
 			if ((windowRectangle.X == -32000) && (windowRectangle.Y == -32000))
 			{
 				return false;
 			}
 
-			Rectangle visibleArea = new Rectangle();
+			//Get the rectangle for the area of the window to test.  We reduce the size of the
+			//window's area to test, so that we don't reposition windows that are only slightly
+			//offscreen.
+			Rectangle testRectangle = window.ScreenRectangle;
+			testRectangle.Inflate(-OffscreenMargin, -OffscreenMargin);
 
-			foreach (Screen screen in Screen.AllScreens)
+			//Return whether any of the window was off-screen
+			return OffScreenRegion.IsVisible(testRectangle);
+		}
+
+		/// <summary>
+		/// Gets a <see cref="Region"/> that represents all off-screen area.
+		/// </summary>
+		private static Region OffScreenRegion
+		{
+			get
 			{
-				visibleArea = Rectangle.Union(visibleArea, screen.Bounds);
-			}
+				Region region = new Region();
+				region.MakeInfinite();
 
-			if (windowRectangle.Left < (visibleArea.Left - OffscreenMargin))
-			{
-				return true;
-			}
+				foreach (Screen screen in Screen.AllScreens)
+				{
+					region.Exclude(screen.Bounds);
+				}
 
-			if (windowRectangle.Top < (visibleArea.Top - OffscreenMargin))
-			{
-				return true;
+				return region;
 			}
-
-			if (windowRectangle.Right > (visibleArea.Right + OffscreenMargin))
-			{
-				return true;
-			}
-
-			if (windowRectangle.Bottom > (visibleArea.Bottom + OffscreenMargin))
-			{
-				return true;
-			}
-
-			return false;
 		}
 	}
 }
