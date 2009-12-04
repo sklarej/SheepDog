@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2008 Josh Sklare
+Copyright (c) 2009 Josh Sklare
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -34,7 +34,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Josh Sklare")]
 [assembly: AssemblyProduct("SheepDog")]
-[assembly: AssemblyCopyright("Copyright ©  2008 - MIT License - Josh Sklare")]
+[assembly: AssemblyCopyright("Copyright ©  2009 - MIT License - Josh Sklare")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -47,8 +47,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 
-[assembly: AssemblyVersion("0.9.0.0")]
-[assembly: AssemblyFileVersion("0.9.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: CLSCompliant(false)]
 [assembly: NeutralResourcesLanguage("en-US")]

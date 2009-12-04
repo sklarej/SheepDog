@@ -1,5 +1,5 @@
-SheepDog Beta 0.8 Readme
-October 17, 2008
+SheepDog 1.0 Readme
+December 4, 2009
 http://www.codeplex.com/SheepDog
 
 ===============================================================================
@@ -13,7 +13,8 @@ access because it is located off your visible screen.
 Off-screen windows can occur in a variety of situations, including:
 
     * Switching between monitors on a laptop
-    * Multiple-screen setup
+    * Computers with multiple monitors
+    * Applications that save an invalid startup position
     
 
 ===============================================================================
@@ -47,22 +48,24 @@ parameter:
 ===============================================================================
 HOW TO INSTALL
 
-Currently there is no setup program for SheepDog, although there will be one in
-the near future.  However, SheepDog can simply be copied onto your computer and
-run without needing to install it.
+There are 2 ways to install SheepDog:
 
-If you want SheepDog to always run, you will have to create a shortcut to it in
-your Windows startup folder.
+1) Install SheepDog using the setup package.  This will install SheepDog on
+   your computer and set it up to run on startup.
+
+2) Copy SheepDog onto your computer and run without needing to install it. A
+   zip file containing SheepDog is available for download. (If you wish for 
+   SheepDog to always run, you can create a shortcut to it in your Windows 
+   startup folder.
 
 
 ===============================================================================
 SYSTEM REQUIREMENTS
 
-SheepDog is designed to work on Windows 2000 and later, although it's only been 
-tested on Windows XP and Vista so far.  It works on both 32-bit and 64-bit 
-versions of Windows.
+* Windows 2000, Windows XP, Windows Vista, Windows 7, Windows Server 2003,
+  or Windows Server 2008 (32-bit and 64-bit for all versions)
 
-The .NET Framework 2.0 is also required to run SheepDog.
+* Microsoft .NET Framework 2.0 or greater
 
 
 ===============================================================================
