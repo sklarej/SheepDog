@@ -110,6 +110,14 @@
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
 
     <!--
+      Ensure that the .NET Framework 2.0 is installed.
+      -->
+    <PropertyRef Id="NETFRAMEWORK20"/>
+    <Condition Message="The .NET Framework 2.0 must be installed before SheepDog can be installed.  You can download the .NET Framework at: http://msdn.microsoft.com/netframework">
+      Installed OR NETFRAMEWORK20
+    </Condition>
+
+    <!--
       This custom action ensures that SheepDog is closed before the installation is
       upgraded, repaired, or uninstalled.
       -->
