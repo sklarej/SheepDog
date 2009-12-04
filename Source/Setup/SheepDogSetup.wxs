@@ -34,14 +34,14 @@
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <Product Id="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4" 
            UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
-           Name="SheepDog"
+           Name="SheepDog 1.0"
            Language="1033"
            Version="1.0.0.0"
            Manufacturer="Josh Sklare" >
     <Package InstallerVersion="200"
              Compressed="yes"
-             Description="SheepDog"
-             Comments="This is the setup package for SheepDog.  SheepDog is a free utility for repositioning off-screen windows.  Learn more at http://www.codeplex.com/SheepDog" />
+             Description="SheepDog 1.0"
+             Comments="Setup package for SheepDog.  SheepDog is a free utility for repositioning off-screen windows.  Learn more at http://www.codeplex.com/SheepDog" />
 
     <Media Id="1" Cabinet="SheepDogSetUp.cab" EmbedCab="yes" />
 
