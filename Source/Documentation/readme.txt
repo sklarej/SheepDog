@@ -37,10 +37,9 @@ COMMAND LINE MODE:
 SheepDog can also be run as a command line program.  This allows you to 
 create a shortcut to reposition windows, run it from a command prompt,
 or incorporate it in an application launcher program.  When run in this mode,
-SheepDog will simply close after repositioning off-screen windows.
+SheepDog will close after repositioning off-screen windows.
 
-To run SheepDog in this way, simply execute it with the "/RepositionNow"
-parameter:
+To run SheepDog in this way, execute it with the "/RepositionNow" parameter:
 
     SheepDog /RepositionNow
     
@@ -50,13 +49,12 @@ HOW TO INSTALL
 
 There are 2 ways to install SheepDog:
 
-1) Install SheepDog using the setup package.  This will install SheepDog on
-   your computer and set it up to run on startup.
+1) Install SheepDog using the SheepDogSetup.msi setup package.  This will 
+   place SheepDog in your Program Files directory and set it to run on startup.
 
-2) Copy SheepDog onto your computer and run without needing to install it. A
-   zip file containing SheepDog is available for download. (If you wish for 
-   SheepDog to always run, you can create a shortcut to it in your Windows 
-   startup folder.
+2) Copy SheepDog.exe onto your computer without installing it.  A zip file 
+   containing SheepDog is available for download. (If you wish for SheepDog to 
+   always run, you can create a shortcut to it in your Windows startup folder.)
 
 
 ===============================================================================
