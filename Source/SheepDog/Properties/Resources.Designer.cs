@@ -70,7 +70,7 @@ namespace SheepDog.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright ©  2008 - MIT License - Josh Sklare.
+        ///   Looks up a localized string similar to Copyright ©  2009 - MIT License - Josh Sklare.
         /// </summary>
         internal static string ApplicationCopyright {
             get {
@@ -141,7 +141,7 @@ namespace SheepDog.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to MIT License
-        ///Copyright (c) 2008 Josh Sklare
+        ///Copyright (c) 2009 Josh Sklare
         ///
         ///Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
         ///
