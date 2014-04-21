@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   MIT License
-  Copyright (c) 2009 Josh Sklare
+  Copyright (c) 2014 Joshua Sklare
   http://www.codeplex.com/SheepDog
 
   Permission is hereby granted, free of charge, to any person obtaining
@@ -22,13 +22,15 @@
   LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
   OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-      -->
+-->
 <!--
   This is the file which defines the setup package for SheepDog.  It's
-  been tested with WiX 3.0.5419 (available at 
-  http://wix.sourceforge.net/releases/3.0.5419.0/).  The SheepDogSetup
-  solution can be built within Visual Studio 2008 if you have WiX Votive
-  installed (Votive is installed when you install Wix3.msi).
+  been tested with WiX 3.8 (available at 
+  https://wix.codeplex.com/releases/view/115492).  The SheepDogSetup
+  solution can be built within Visual Studio 2013 if you have WiX 
+  installed.  You must build the SheepDog solution prior to building this
+  solution, so that all binaries have been created for the setup package
+  to include.
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
@@ -37,7 +39,7 @@
            Name="SheepDog 1.0"
            Language="1033"
            Version="1.0.0.0"
-           Manufacturer="Josh Sklare" >
+           Manufacturer="Joshua Sklare" >
     <Package InstallerVersion="200"
              Compressed="yes"
              Description="SheepDog 1.0"
@@ -50,7 +52,7 @@
     </Feature>
 
     <!--
-      Defines all the files, directories, and shortucts installed with SheepDog.
+      Defines all the files, directories, and shortcuts installed with SheepDog.
     -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
