@@ -91,27 +91,27 @@ namespace SheepDog
 			Rectangle testRectangle = window.ScreenRectangle;
 			testRectangle.Inflate(-OffscreenMargin, -OffscreenMargin);
 
-			//Return whether any of the window was off-screen
-			return OffScreenRegion.IsVisible(testRectangle);
+            using (Region offScreenRegion = GetOffScreenRegion())
+            {
+                //Return whether any of the window was off-screen
+                return offScreenRegion.IsVisible(testRectangle);
+            }
 		}
 
 		/// <summary>
 		/// Gets a <see cref="Region"/> that represents all off-screen area.
 		/// </summary>
-		private static Region OffScreenRegion
+		private static Region GetOffScreenRegion()
 		{
-			get
+			Region region = new Region();
+			region.MakeInfinite();
+
+			foreach (Screen screen in Screen.AllScreens)
 			{
-				Region region = new Region();
-				region.MakeInfinite();
-
-				foreach (Screen screen in Screen.AllScreens)
-				{
-					region.Exclude(screen.Bounds);
-				}
-
-				return region;
+				region.Exclude(screen.Bounds);
 			}
+
+            return region;
 		}
 	}
 }
