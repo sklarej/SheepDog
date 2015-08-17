@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -32,9 +32,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SheepDog - Off-screen Window Manager")]
 [assembly: AssemblyDescription("SheepDog - Off-screen Window Manager - A utility for repositioning off-screen windows")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Josh Sklare")]
+[assembly: AssemblyCompany("Joshua Sklare")]
 [assembly: AssemblyProduct("SheepDog")]
-[assembly: AssemblyCopyright("Copyright ©  2009 - MIT License - Josh Sklare")]
+[assembly: AssemblyCopyright("Copyright ©  2009 - MIT License - Joshua Sklare")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -47,8 +47,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 
 [assembly: CLSCompliant(false)]
 [assembly: NeutralResourcesLanguage("en-US")]

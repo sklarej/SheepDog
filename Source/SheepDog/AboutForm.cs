@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -34,64 +34,64 @@ using SheepDog.Properties;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Form which displays information about this application.
-	/// </summary>
-	partial class AboutForm : Form
-	{
-		private readonly IServiceProvider _serviceProvider;
+    /// <summary>
+    /// Form which displays information about this application.
+    /// </summary>
+    partial class AboutForm : Form
+    {
+        private readonly IServiceProvider _serviceProvider;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="AboutForm"/> class.
-		/// </summary>
-		public AboutForm()
-		{
-			InitializeComponent();
-			Text = String.Format(CultureInfo.InvariantCulture, "About {0}", Resources.ApplicationTitle);
-			labelProductName.Text = Resources.ApplicationTitle + " - " + Resources.ApplicationSubTitle;
-			labelVersion.Text = String.Format(CultureInfo.InvariantCulture, "Version {0}", AssemblyVersion);
-			labelCopyright.Text = Resources.ApplicationCopyright;
-			labelWebSite.Text = Resources.ApplicationWebSite;
-			textBoxDescription.Text = Resources.ApplicationDescription + "\r\n\r\n" + Resources.License;
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="AboutForm"/> class.
+        /// </summary>
+        public AboutForm()
+        {
+            InitializeComponent();
+            Text = String.Format(CultureInfo.InvariantCulture, "About {0}", Resources.ApplicationTitle);
+            labelProductName.Text = Resources.ApplicationTitle + " - " + Resources.ApplicationSubTitle;
+            labelVersion.Text = String.Format(CultureInfo.InvariantCulture, "Version {0}", AssemblyVersion);
+            labelCopyright.Text = Resources.ApplicationCopyright;
+            labelWebSite.Text = Resources.ApplicationWebSite;
+            textBoxDescription.Text = Resources.ApplicationDescription + "\r\n\r\n" + Resources.License;
+        }
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="AboutForm"/> class.
-		/// </summary>
-		public AboutForm(IServiceProvider serviceProvider) : this()
-		{
-			_serviceProvider = serviceProvider;
-			Icon = MainForm.Icon;
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="AboutForm"/> class.
+        /// </summary>
+        public AboutForm(IServiceProvider serviceProvider) : this()
+        {
+            _serviceProvider = serviceProvider;
+            Icon = MainForm.Icon;
+        }
 
-		/// <summary>
-		/// Gets the version of this application from it's main assembly.
-		/// </summary>
-		public static string AssemblyVersion
-		{
-			[DebuggerStepThrough]
-			get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
-		}
+        /// <summary>
+        /// Gets the version of this application from it's main assembly.
+        /// </summary>
+        public static string AssemblyVersion
+        {
+            [DebuggerStepThrough]
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+        }
 
-		/// <summary>
-		/// Opens the web site link when the user clicks on the link.
-		/// </summary>
-		private void WebSiteLinkClickedEventHandler(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			Process.Start(labelWebSite.Text);
-		}
+        /// <summary>
+        /// Opens the web site link when the user clicks on the link.
+        /// </summary>
+        private void WebSiteLinkClickedEventHandler(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(labelWebSite.Text);
+        }
 
-		#region Services
+        #region Services
 
-		/// <summary>
-		/// Gets the <see cref="MainForm"/> service.
-		/// </summary>
-		public MainForm MainForm
-		{
-			[DebuggerStepThrough]
-			get { return _serviceProvider.GetService(typeof(MainForm)) as MainForm; }
-		}
+        /// <summary>
+        /// Gets the <see cref="MainForm"/> service.
+        /// </summary>
+        public MainForm MainForm
+        {
+            [DebuggerStepThrough]
+            get { return _serviceProvider.GetService(typeof(MainForm)) as MainForm; }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

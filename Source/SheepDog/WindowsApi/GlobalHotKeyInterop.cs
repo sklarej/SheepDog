@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -29,63 +29,63 @@ using System.Diagnostics;
 
 namespace SheepDog.WindowsApi
 {
-	/// <summary>
-	/// Collection of helper methods that wrap hotkey related Windows API calls.
-	/// </summary>
-	public static class GlobalHotKeyInterop
-	{
-		/// <summary>
-		/// Registers the specified hotkey as a global hotkey.
-		/// </summary>
-		public static bool RegisterGlobalHotkey(short hotkeyAtomId, IntPtr hWnd, Hotkey hotkey)
-		{
-			int modifiers = 0;
+    /// <summary>
+    /// Collection of helper methods that wrap hotkey related Windows API calls.
+    /// </summary>
+    public static class GlobalHotKeyInterop
+    {
+        /// <summary>
+        /// Registers the specified hotkey as a global hotkey.
+        /// </summary>
+        public static bool RegisterGlobalHotkey(short hotkeyAtomId, IntPtr hWnd, Hotkey hotkey)
+        {
+            int modifiers = 0;
 
-			if (hotkey.Shift)
-			{
-				modifiers |= User32.MOD_SHIFT;
-			}
+            if (hotkey.Shift)
+            {
+                modifiers |= User32.MOD_SHIFT;
+            }
 
-			if (hotkey.Control)
-			{
-				modifiers |= User32.MOD_CONTROL;
-			}
+            if (hotkey.Control)
+            {
+                modifiers |= User32.MOD_CONTROL;
+            }
 
-			if (hotkey.Alt)
-			{
-				modifiers |= User32.MOD_ALT;
-			}
+            if (hotkey.Alt)
+            {
+                modifiers |= User32.MOD_ALT;
+            }
 
-			if (hotkey.Windows)
-			{
-				modifiers |= User32.MOD_WIN;
-			}
+            if (hotkey.Windows)
+            {
+                modifiers |= User32.MOD_WIN;
+            }
 
-			return User32.RegisterHotKey(hWnd, hotkeyAtomId, modifiers, (int) hotkey.Key);
-		}
+            return User32.RegisterHotKey(hWnd, hotkeyAtomId, modifiers, (int) hotkey.Key);
+        }
 
-		/// <summary>
-		/// Unregisters the global hotkey for the specified form.
-		/// </summary>
-		public static void UnregisterGlobalHotkey(short hotkeyAtomId, IntPtr hWnd)
-		{
-			User32.UnregisterHotKey(hWnd, hotkeyAtomId);
-		}
+        /// <summary>
+        /// Unregisters the global hotkey for the specified form.
+        /// </summary>
+        public static void UnregisterGlobalHotkey(short hotkeyAtomId, IntPtr hWnd)
+        {
+            User32.UnregisterHotKey(hWnd, hotkeyAtomId);
+        }
 
-		/// <summary>
-		/// Returns whether the specified hotkey is available to be registered.
-		/// </summary>
-		public static Boolean IsHotkeyAvailable(Hotkey hotkey)
-		{
-			short atom = Kernel32.GlobalAddAtom("HotkeyAvailableTestAtom-" + Process.GetCurrentProcess().Id);
-			Boolean hotkeyRegistered = RegisterGlobalHotkey(atom, IntPtr.Zero, hotkey);
+        /// <summary>
+        /// Returns whether the specified hotkey is available to be registered.
+        /// </summary>
+        public static Boolean IsHotkeyAvailable(Hotkey hotkey)
+        {
+            short atom = Kernel32.GlobalAddAtom("HotkeyAvailableTestAtom-" + Process.GetCurrentProcess().Id);
+            Boolean hotkeyRegistered = RegisterGlobalHotkey(atom, IntPtr.Zero, hotkey);
 
-			if (hotkeyRegistered)
-			{
-				UnregisterGlobalHotkey(atom, IntPtr.Zero);
-			}
+            if (hotkeyRegistered)
+            {
+                UnregisterGlobalHotkey(atom, IntPtr.Zero);
+            }
 
-			return hotkeyRegistered;
-		}
-	}
+            return hotkeyRegistered;
+        }
+    }
 }

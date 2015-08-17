@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -29,26 +29,26 @@ using System;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Contains event data for when the global hotkey is changed.
-	/// </summary>
-	public class HotkeyChangedEventArgs : EventArgs
-	{
-		/// <summary>
-		/// Creates a new instance of the <see cref="HotkeyChangedEventArgs"/> class.
-		/// </summary>
-		/// <param name="hotkey">New hotkey that has been set for the application.</param>
-		public HotkeyChangedEventArgs(Hotkey hotkey)
-		{
-			Hotkey = hotkey;
-		}
+    /// <summary>
+    /// Contains event data for when the global hotkey is changed.
+    /// </summary>
+    public class HotkeyChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Creates a new instance of the <see cref="HotkeyChangedEventArgs"/> class.
+        /// </summary>
+        /// <param name="hotkey">New hotkey that has been set for the application.</param>
+        public HotkeyChangedEventArgs(Hotkey hotkey)
+        {
+            Hotkey = hotkey;
+        }
 
-		/// <summary>
-		/// New hotkey that has been set for the application.
-		/// </summary>
-		public Hotkey Hotkey
-		{
-			get; set;
-		}
-	}
+        /// <summary>
+        /// New hotkey that has been set for the application.
+        /// </summary>
+        public Hotkey Hotkey
+        {
+            get; set;
+        }
+    }
 }

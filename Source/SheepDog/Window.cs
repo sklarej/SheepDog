@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -33,92 +33,92 @@ using SheepDog.WindowsApi;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Represents a top level window that is currently on the desktop.
-	/// </summary>
-	public class Window
-	{
-		private const int MaxStringLength = 256;
+    /// <summary>
+    /// Represents a top level window that is currently on the desktop.
+    /// </summary>
+    public class Window
+    {
+        private const int MaxStringLength = 256;
 
-		private readonly IntPtr _handle;
+        private readonly IntPtr _handle;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="Window"/> class.
-		/// </summary>
-		public Window(IntPtr handle)
-		{
-			_handle = handle;
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="Window"/> class.
+        /// </summary>
+        public Window(IntPtr handle)
+        {
+            _handle = handle;
+        }
 
-		/// <summary>
-		/// Title of the window.
-		/// </summary>
-		public IntPtr Handle
-		{
-			[DebuggerStepThrough]
-			get
-			{
-				return _handle;
-			}
-		}
+        /// <summary>
+        /// Title of the window.
+        /// </summary>
+        public IntPtr Handle
+        {
+            [DebuggerStepThrough]
+            get
+            {
+                return _handle;
+            }
+        }
 
-		/// <summary>
-		/// Title of the window.
-		/// </summary>
-		public String Title
-		{
-			get
-			{
-				StringBuilder title = new StringBuilder(MaxStringLength);
-				User32.GetWindowText(_handle, title, MaxStringLength);
-				return title.ToString();
-			}
-		}
+        /// <summary>
+        /// Title of the window.
+        /// </summary>
+        public String Title
+        {
+            get
+            {
+                StringBuilder title = new StringBuilder(MaxStringLength);
+                User32.GetWindowText(_handle, title, MaxStringLength);
+                return title.ToString();
+            }
+        }
 
-		/// <summary>
-		/// Indicates the area of the screen that this window resides in.
-		/// </summary>
-		public Rectangle ScreenRectangle
-		{
-			get
-			{
-				User32.RECT rectangle;
+        /// <summary>
+        /// Indicates the area of the screen that this window resides in.
+        /// </summary>
+        public Rectangle ScreenRectangle
+        {
+            get
+            {
+                User32.RECT rectangle;
 
-				if (User32.GetWindowRect(_handle, out rectangle) == false)
-				{
-					return new Rectangle();
-				}
+                if (User32.GetWindowRect(_handle, out rectangle) == false)
+                {
+                    return new Rectangle();
+                }
 
-				return rectangle;
-			}
-		}
+                return rectangle;
+            }
+        }
 
-		/// <summary>
-		/// Indicates whether the window is maximized.
-		/// </summary>
-		public Boolean IsMaximized
-		{
-			get
-			{
-				Int32 style = User32.GetWindowLong(_handle, User32.GWL_STYLE);
+        /// <summary>
+        /// Indicates whether the window is maximized.
+        /// </summary>
+        public Boolean IsMaximized
+        {
+            get
+            {
+                Int32 style = User32.GetWindowLong(_handle, User32.GWL_STYLE);
 
-				return ((style & User32.WS_MAXIMIZE) == User32.WS_MAXIMIZE);
-			}
-		}
+                return ((style & User32.WS_MAXIMIZE) == User32.WS_MAXIMIZE);
+            }
+        }
 
-		/// <summary>
-		/// Sets the position of this window.
-		/// </summary>
-		public void SetPosition(Point position)
-		{
-			User32.SetWindowPos(
-				_handle,
-				IntPtr.Zero,
-				position.X,
-				position.Y,
-				0,
-				0,
-				User32.SWP_SHOWWINDOW | User32.SWP_NOSIZE);
-		}
-	}
+        /// <summary>
+        /// Sets the position of this window.
+        /// </summary>
+        public void SetPosition(Point position)
+        {
+            User32.SetWindowPos(
+                _handle,
+                IntPtr.Zero,
+                position.X,
+                position.Y,
+                0,
+                0,
+                User32.SWP_SHOWWINDOW | User32.SWP_NOSIZE);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -32,102 +32,102 @@ using System.Windows.Forms;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Creates all the major pieces of the application, places them in a 
-	/// service container so they can be accessed by other components, and 
-	/// then initializes them for running.
-	/// </summary>
-	public class ApplicationController : IDisposable
-	{
-		private ServiceContainer _serviceContainer;
+    /// <summary>
+    /// Creates all the major pieces of the application, places them in a 
+    /// service container so they can be accessed by other components, and 
+    /// then initializes them for running.
+    /// </summary>
+    public class ApplicationController : IDisposable
+    {
+        private ServiceContainer _serviceContainer;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="ApplicationController"/> class.
-		/// </summary>
-		public ApplicationController()
-		{
-			_serviceContainer = new ServiceContainer();
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="ApplicationController"/> class.
+        /// </summary>
+        public ApplicationController()
+        {
+            _serviceContainer = new ServiceContainer();
+        }
 
-		/// <summary>
-		/// Initiates the running of the application.
-		/// </summary>
-		public void Run()
-		{
-			using (SingleInstanceController singleInstance = new SingleInstanceController(Application.ProductName))
-			{
-				if (singleInstance.IsOnlyInstance == false)
-				{
-					Trace.WriteLine("Another running instance of this application has been detected.");
-					return;
-				}
+        /// <summary>
+        /// Initiates the running of the application.
+        /// </summary>
+        public void Run()
+        {
+            using (SingleInstanceController singleInstance = new SingleInstanceController(Application.ProductName))
+            {
+                if (singleInstance.IsOnlyInstance == false)
+                {
+                    Trace.WriteLine("Another running instance of this application has been detected.");
+                    return;
+                }
 
-				InitializeServices();
+                InitializeServices();
 
-				Application.Run(MainForm);
-			}
-		}
+                Application.Run(MainForm);
+            }
+        }
 
-		/// <summary>
-		/// Creates all the services needed to run the application, adds them to the
-		/// service container, and then initializes them.
-		/// </summary>
-		private void InitializeServices()
-		{
-			//Create all services and add them to the service container
-			MainForm mainForm = new MainForm(_serviceContainer);
-			_serviceContainer.AddService(typeof(MainForm), mainForm);
+        /// <summary>
+        /// Creates all the services needed to run the application, adds them to the
+        /// service container, and then initializes them.
+        /// </summary>
+        private void InitializeServices()
+        {
+            //Create all services and add them to the service container
+            MainForm mainForm = new MainForm(_serviceContainer);
+            _serviceContainer.AddService(typeof(MainForm), mainForm);
 
-			GlobalHotkeyService hotKeyService = new GlobalHotkeyService(_serviceContainer);
-			_serviceContainer.AddService(typeof(GlobalHotkeyService), hotKeyService);
+            GlobalHotkeyService hotKeyService = new GlobalHotkeyService(_serviceContainer);
+            _serviceContainer.AddService(typeof(GlobalHotkeyService), hotKeyService);
 
-			ConfigurationService configurationService = new ConfigurationService(_serviceContainer);
-			_serviceContainer.AddService(typeof(ConfigurationService), configurationService);
+            ConfigurationService configurationService = new ConfigurationService(_serviceContainer);
+            _serviceContainer.AddService(typeof(ConfigurationService), configurationService);
 
-			//Now that all services have been added to the service container, they can be initialized
-			configurationService.Initialize();
-			hotKeyService.Initialize();
-			mainForm.Initialize();
-		}
+            //Now that all services have been added to the service container, they can be initialized
+            configurationService.Initialize();
+            hotKeyService.Initialize();
+            mainForm.Initialize();
+        }
 
-		/// <summary>
-		/// Disposes of the service container contained in this controller.
-		/// </summary>
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
+        /// <summary>
+        /// Disposes of the service container contained in this controller.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-		/// <summary>
-		/// Disposes of the service container contained in this controller.
-		/// </summary>
-		/// <param name="disposing">
-		/// Indicates whether managed resources should be disposed.
-		/// </param>
-		protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				if (_serviceContainer != null)
-				{
-					_serviceContainer.Dispose();
-					_serviceContainer = null;
-				}
-			}
-		}
+        /// <summary>
+        /// Disposes of the service container contained in this controller.
+        /// </summary>
+        /// <param name="disposing">
+        /// Indicates whether managed resources should be disposed.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_serviceContainer != null)
+                {
+                    _serviceContainer.Dispose();
+                    _serviceContainer = null;
+                }
+            }
+        }
 
-		#region Services
+        #region Services
 
-		/// <summary>
-		/// Gets the main form for the application.
-		/// </summary>
-		private MainForm MainForm
-		{
-			[DebuggerStepThrough]
-			get { return _serviceContainer.GetService(typeof (MainForm)) as MainForm; }
-		}
+        /// <summary>
+        /// Gets the main form for the application.
+        /// </summary>
+        private MainForm MainForm
+        {
+            [DebuggerStepThrough]
+            get { return _serviceContainer.GetService(typeof (MainForm)) as MainForm; }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
