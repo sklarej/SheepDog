@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -31,85 +31,85 @@ using System.Windows.Forms;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Represents a global hotkey, storing it's key and modifier keys.
-	/// </summary>
-	/// <remarks>
-	/// This class is needed because the framework <see cref="Keys"/> class does
-	/// not have a modifier to represent the Windows key.
-	/// </remarks>
-	public class Hotkey
-	{
-		public Keys Key { get; set; }
-		public Boolean Shift { get; set; }
-		public Boolean Control { get; set; }
-		public Boolean Alt { get; set; }
-		public Boolean Windows { get; set; }
+    /// <summary>
+    /// Represents a global hotkey, storing it's key and modifier keys.
+    /// </summary>
+    /// <remarks>
+    /// This class is needed because the framework <see cref="Keys"/> class does
+    /// not have a modifier to represent the Windows key.
+    /// </remarks>
+    public class Hotkey
+    {
+        public Keys Key { get; set; }
+        public Boolean Shift { get; set; }
+        public Boolean Control { get; set; }
+        public Boolean Alt { get; set; }
+        public Boolean Windows { get; set; }
 
-		/// <summary>
-		/// Returns the hotkey as a user readable string.
-		/// </summary>
-		[DebuggerStepThrough]
-		public override string ToString()
-		{
-			String output = "";
+        /// <summary>
+        /// Returns the hotkey as a user readable string.
+        /// </summary>
+        [DebuggerStepThrough]
+        public override string ToString()
+        {
+            String output = "";
 
-			if (Control)
-			{
-				output += "Ctrl+";
-			}
+            if (Control)
+            {
+                output += "Ctrl+";
+            }
 
-			if (Alt)
-			{
-				output += "Alt+";
-			}
+            if (Alt)
+            {
+                output += "Alt+";
+            }
 
-			if (Shift)
-			{
-				output += "Shift+";
-			}
+            if (Shift)
+            {
+                output += "Shift+";
+            }
 
-			if (Windows)
-			{
-				output += "Win+";
-			}
+            if (Windows)
+            {
+                output += "Win+";
+            }
 
-			output += Key.ToString();
+            output += Key.ToString();
 
-			return output;
-		}
+            return output;
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[DebuggerStepThrough]
-		public override bool Equals(object obj)
-		{
-			Hotkey hotkey = obj as Hotkey;
+        /// <summary>
+        /// 
+        /// </summary>
+        [DebuggerStepThrough]
+        public override bool Equals(object obj)
+        {
+            Hotkey hotkey = obj as Hotkey;
 
-			if (hotkey == null)
-			{
-				return false;
-			}
+            if (hotkey == null)
+            {
+                return false;
+            }
 
-			return (Control == hotkey.Control) &&
-				(Alt == hotkey.Alt) &&
-				(Shift == hotkey.Shift) &&
-				(Windows == hotkey.Windows) &&
-				(Key == hotkey.Key);
-		}
+            return (Control == hotkey.Control) &&
+                (Alt == hotkey.Alt) &&
+                (Shift == hotkey.Shift) &&
+                (Windows == hotkey.Windows) &&
+                (Key == hotkey.Key);
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		[DebuggerStepThrough]
-		public override int GetHashCode()
-		{
-			return Control.GetHashCode() ^ 
-				Alt.GetHashCode() ^ 
-				Shift.GetHashCode() ^ 
-				Windows.GetHashCode() ^ 
-				Key.GetHashCode();
-		}
-	}
+        /// <summary>
+        /// 
+        /// </summary>
+        [DebuggerStepThrough]
+        public override int GetHashCode()
+        {
+            return Control.GetHashCode() ^ 
+                Alt.GetHashCode() ^ 
+                Shift.GetHashCode() ^ 
+                Windows.GetHashCode() ^ 
+                Key.GetHashCode();
+        }
+    }
 }

@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -32,194 +32,194 @@ using SheepDog.WindowsApi;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Controls registration and un-registration of the global hotkey for
-	/// this application. 
-	/// </summary>
-	public class GlobalHotkeyService : BaseControl, IDisposable
-	{
-		private const String HotkeyAtomSuffix = "HotkeyAtom";
+    /// <summary>
+    /// Controls registration and un-registration of the global hotkey for
+    /// this application. 
+    /// </summary>
+    public class GlobalHotkeyService : BaseControl, IDisposable
+    {
+        private const String HotkeyAtomSuffix = "HotkeyAtom";
 
-		private Int16 _hotkeyAtom;
-		private IntPtr _mainFormHwnd;
-		private Hotkey _hotkey;
-		private EventHandler<HotkeyChangedEventArgs> _hotkeyChangedEvent;
+        private Int16 _hotkeyAtom;
+        private IntPtr _mainFormHwnd;
+        private Hotkey _hotkey;
+        private EventHandler<HotkeyChangedEventArgs> _hotkeyChangedEvent;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="GlobalHotkeyService"/> class.
-		/// </summary>
-		public GlobalHotkeyService(IServiceProvider serviceProvider) : base(serviceProvider)
-		{
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="GlobalHotkeyService"/> class.
+        /// </summary>
+        public GlobalHotkeyService(IServiceProvider serviceProvider) : base(serviceProvider)
+        {
+        }
 
-		/// <summary>
-		/// Finalizes the instance of the <see cref="GlobalHotkeyService"/> class.
-		/// </summary>
-		~GlobalHotkeyService()
-		{
-			Dispose(false);
-		}
+        /// <summary>
+        /// Finalizes the instance of the <see cref="GlobalHotkeyService"/> class.
+        /// </summary>
+        ~GlobalHotkeyService()
+        {
+            Dispose(false);
+        }
 
-		/// <summary>
-		/// Initializes the hotkey service and loads the current hotkey from the 
-		/// configuration service.
-		/// </summary>
-		public void Initialize()
-		{
-			_mainFormHwnd = MainForm.Handle;
-			ConfigurationService.Saved += ConfigurationSavedEventHandler;
-			LoadHotkeyFromConfiguration();
-		}
+        /// <summary>
+        /// Initializes the hotkey service and loads the current hotkey from the 
+        /// configuration service.
+        /// </summary>
+        public void Initialize()
+        {
+            _mainFormHwnd = MainForm.Handle;
+            ConfigurationService.Saved += ConfigurationSavedEventHandler;
+            LoadHotkeyFromConfiguration();
+        }
 
-		/// <summary>
-		/// Loads the current hotkey from the configuration service.
-		/// </summary>
-		private void LoadHotkeyFromConfiguration()
-		{
-			if (ConfigurationService.HotkeyEnabled)
-			{
-				Hotkey = ConfigurationService.Hotkey;
-			}
-			else
-			{
-				Hotkey = null;
-			}
-		}
+        /// <summary>
+        /// Loads the current hotkey from the configuration service.
+        /// </summary>
+        private void LoadHotkeyFromConfiguration()
+        {
+            if (ConfigurationService.HotkeyEnabled)
+            {
+                Hotkey = ConfigurationService.Hotkey;
+            }
+            else
+            {
+                Hotkey = null;
+            }
+        }
 
-		/// <summary>
-		/// Handles the Saved event for the configuration service.  This ensures that the
-		/// current registered hotkey reflects the one that is set by the user.
-		/// </summary>
-		private void ConfigurationSavedEventHandler(object sender, EventArgs e)
-		{
-			LoadHotkeyFromConfiguration();
-		}
+        /// <summary>
+        /// Handles the Saved event for the configuration service.  This ensures that the
+        /// current registered hotkey reflects the one that is set by the user.
+        /// </summary>
+        private void ConfigurationSavedEventHandler(object sender, EventArgs e)
+        {
+            LoadHotkeyFromConfiguration();
+        }
 
-		/// <summary>
-		/// Specifies the global hotkey which activates this application.
-		/// </summary>
-		public Hotkey Hotkey
-		{
-			get
-			{
-				return _hotkey;
-			}
-			set
-			{
-				UnregisterHotkey();
-				_hotkey = value;
-				RegisterHotkey();
+        /// <summary>
+        /// Specifies the global hotkey which activates this application.
+        /// </summary>
+        public Hotkey Hotkey
+        {
+            get
+            {
+                return _hotkey;
+            }
+            set
+            {
+                UnregisterHotkey();
+                _hotkey = value;
+                RegisterHotkey();
 
-				RaiseHotkeyChangedEvent(Hotkey);
-			}
-		}
+                RaiseHotkeyChangedEvent(Hotkey);
+            }
+        }
 
-		/// <summary>
-		/// Occurs when the registered global hotkey is changed.
-		/// </summary>
-		public event EventHandler<HotkeyChangedEventArgs> HotkeyChanged
-		{
-			add { _hotkeyChangedEvent += value; }
-			remove { _hotkeyChangedEvent -= value; }
-		}
+        /// <summary>
+        /// Occurs when the registered global hotkey is changed.
+        /// </summary>
+        public event EventHandler<HotkeyChangedEventArgs> HotkeyChanged
+        {
+            add { _hotkeyChangedEvent += value; }
+            remove { _hotkeyChangedEvent -= value; }
+        }
 
-		/// <summary>
-		/// Causes the <see cref="HotkeyChanged"/> event to be raised.
-		/// </summary>
-		/// <param name="hotkey"></param>
-		private void RaiseHotkeyChangedEvent(Hotkey hotkey)
-		{
-			EventHandler<HotkeyChangedEventArgs> eventHandler = _hotkeyChangedEvent;
+        /// <summary>
+        /// Causes the <see cref="HotkeyChanged"/> event to be raised.
+        /// </summary>
+        /// <param name="hotkey"></param>
+        private void RaiseHotkeyChangedEvent(Hotkey hotkey)
+        {
+            EventHandler<HotkeyChangedEventArgs> eventHandler = _hotkeyChangedEvent;
 
-			if (eventHandler != null)
-			{
-				eventHandler(this, new HotkeyChangedEventArgs(hotkey));
-			}
-		}
+            if (eventHandler != null)
+            {
+                eventHandler(this, new HotkeyChangedEventArgs(hotkey));
+            }
+        }
 
-		/// <summary>
-		/// Registers the currently set hotkey as a global hotkey.
-		/// </summary>
-		private void RegisterHotkey()
-		{
-			if (Hotkey == null)
-			{
-				return;
-			}
+        /// <summary>
+        /// Registers the currently set hotkey as a global hotkey.
+        /// </summary>
+        private void RegisterHotkey()
+        {
+            if (Hotkey == null)
+            {
+                return;
+            }
 
-			_hotkeyAtom = Kernel32.GlobalAddAtom(Resources.ApplicationTitle + HotkeyAtomSuffix);
+            _hotkeyAtom = Kernel32.GlobalAddAtom(Resources.ApplicationTitle + HotkeyAtomSuffix);
 
-			bool isRegistered = GlobalHotKeyInterop.RegisterGlobalHotkey(_hotkeyAtom, _mainFormHwnd, Hotkey);
+            bool isRegistered = GlobalHotKeyInterop.RegisterGlobalHotkey(_hotkeyAtom, _mainFormHwnd, Hotkey);
 
-			if (isRegistered == false)
-			{
-				UnregisterHotkey();
-			}
-		}
+            if (isRegistered == false)
+            {
+                UnregisterHotkey();
+            }
+        }
 
-		/// <summary>
-		/// Unregisterers the last global hotkey registered by this controller.
-		/// </summary>
-		private void UnregisterHotkey()
-		{
-			if (_hotkey != null)
-			{
-				GlobalHotKeyInterop.UnregisterGlobalHotkey(_hotkeyAtom, _mainFormHwnd);
-				_hotkey = null;
-			}
+        /// <summary>
+        /// Unregisterers the last global hotkey registered by this controller.
+        /// </summary>
+        private void UnregisterHotkey()
+        {
+            if (_hotkey != null)
+            {
+                GlobalHotKeyInterop.UnregisterGlobalHotkey(_hotkeyAtom, _mainFormHwnd);
+                _hotkey = null;
+            }
 
-			if (_hotkeyAtom != 0)
-			{
-				Kernel32.GlobalDeleteAtom(_hotkeyAtom);
-				_hotkeyAtom = 0;
-			}
-		}
+            if (_hotkeyAtom != 0)
+            {
+                Kernel32.GlobalDeleteAtom(_hotkeyAtom);
+                _hotkeyAtom = 0;
+            }
+        }
 
-		/// <summary>
-		/// Cleans up the service by unregistering the hotkey.
-		/// </summary>
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
+        /// <summary>
+        /// Cleans up the service by unregistering the hotkey.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-		/// <summary>
-		/// Cleans up the service by unregistering the hotkey.
-		/// </summary>
-		/// <param name="disposing">
-		/// Indicates whether managed resources should be disposed.
-		/// </param>
-		protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				//Dispose managed resource here.
-			}
+        /// <summary>
+        /// Cleans up the service by unregistering the hotkey.
+        /// </summary>
+        /// <param name="disposing">
+        /// Indicates whether managed resources should be disposed.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                //Dispose managed resource here.
+            }
 
-			UnregisterHotkey();
-		}
+            UnregisterHotkey();
+        }
 
-		#region Services
+        #region Services
 
-		/// <summary>
-		/// Gets the <see cref="ConfigurationService"/> service.
-		/// </summary>
-		public ConfigurationService ConfigurationService
-		{
-			[DebuggerStepThrough]
-			get { return GetService(typeof(ConfigurationService)) as ConfigurationService; }
-		}
+        /// <summary>
+        /// Gets the <see cref="ConfigurationService"/> service.
+        /// </summary>
+        public ConfigurationService ConfigurationService
+        {
+            [DebuggerStepThrough]
+            get { return GetService(typeof(ConfigurationService)) as ConfigurationService; }
+        }
 
-		/// <summary>
-		/// Gets the <see cref="MainForm"/> service.
-		/// </summary>
-		public MainForm MainForm
-		{
-			[DebuggerStepThrough]
-			get { return GetService(typeof(MainForm)) as MainForm; }
-		}
+        /// <summary>
+        /// Gets the <see cref="MainForm"/> service.
+        /// </summary>
+        public MainForm MainForm
+        {
+            [DebuggerStepThrough]
+            get { return GetService(typeof(MainForm)) as MainForm; }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

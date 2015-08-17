@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -29,41 +29,41 @@ using System;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Class which parses the command line arguments that are passed to this
-	/// application.
-	/// </summary>
-	public class CommandLineParser
-	{
-		private const String RepositionNowArgument = "/RepositionNow";
+    /// <summary>
+    /// Class which parses the command line arguments that are passed to this
+    /// application.
+    /// </summary>
+    public class CommandLineParser
+    {
+        private const String RepositionNowArgument = "/RepositionNow";
 
-		private readonly Boolean _repositionNow;
+        private readonly Boolean _repositionNow;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="CommandLineParser"/> class.
-		/// </summary>
-		/// <param name="arguments">Arguments that were passed to the application.</param>
-		public CommandLineParser(String[] arguments)
-		{
-			foreach (String argument in arguments)
-			{
-				if (String.Equals(argument, RepositionNowArgument, StringComparison.InvariantCultureIgnoreCase))
-				{
-					_repositionNow = true;
-				}
-			}
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="CommandLineParser"/> class.
+        /// </summary>
+        /// <param name="arguments">Arguments that were passed to the application.</param>
+        public CommandLineParser(String[] arguments)
+        {
+            foreach (String argument in arguments)
+            {
+                if (String.Equals(argument, RepositionNowArgument, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    _repositionNow = true;
+                }
+            }
+        }
 
-		/// <summary>
-		/// Indicates if the "/RepositionNow" argument was passed as a command line
-		/// argument to the application.
-		/// </summary>
-		public Boolean RepositionNow
-		{
-			get
-			{
-				return _repositionNow;
-			}
-		}
-	}
+        /// <summary>
+        /// Indicates if the "/RepositionNow" argument was passed as a command line
+        /// argument to the application.
+        /// </summary>
+        public Boolean RepositionNow
+        {
+            get
+            {
+                return _repositionNow;
+            }
+        }
+    }
 }

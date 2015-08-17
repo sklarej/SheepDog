@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -31,42 +31,42 @@ using SheepDog.WindowsApi;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Utility class which can provide a list of visible top-level windows.
-	/// </summary>
-	public class WindowLister
-	{
-		private IList<Window> mWindows;
+    /// <summary>
+    /// Utility class which can provide a list of visible top-level windows.
+    /// </summary>
+    public class WindowLister
+    {
+        private IList<Window> mWindows;
 
-		/// <summary>
-		/// Gets a list of all visible top-level windows.
-		/// </summary>
-		public IList<Window> GetVisibleWindows()
-		{
-			mWindows = new List<Window>();
+        /// <summary>
+        /// Gets a list of all visible top-level windows.
+        /// </summary>
+        public IList<Window> GetVisibleWindows()
+        {
+            mWindows = new List<Window>();
 
-			User32.EnumWindowsProc evalWindowCallback = EvalWindowCallback;
-			User32.EnumWindows(evalWindowCallback, 0);
+            User32.EnumWindowsProc evalWindowCallback = EvalWindowCallback;
+            User32.EnumWindows(evalWindowCallback, 0);
 
-			return mWindows;
-		}
+            return mWindows;
+        }
 
-		/// <summary>
-		/// Callback that occurs for each window returned by the call to
-		/// <see cref="User32.EnumWindows"/>.  Here, we filter out hidden
-		/// (non-visible) windows, and add all other windows to the list
-		/// that is returned from the <see cref="GetVisibleWindows"/> method.
-		/// </summary>
-		private bool EvalWindowCallback(IntPtr hWnd, int lParam)
-		{
-			if (User32.IsWindowVisible(hWnd) == false)
-			{
-				return true;
-			}
+        /// <summary>
+        /// Callback that occurs for each window returned by the call to
+        /// <see cref="User32.EnumWindows"/>.  Here, we filter out hidden
+        /// (non-visible) windows, and add all other windows to the list
+        /// that is returned from the <see cref="GetVisibleWindows"/> method.
+        /// </summary>
+        private bool EvalWindowCallback(IntPtr hWnd, int lParam)
+        {
+            if (User32.IsWindowVisible(hWnd) == false)
+            {
+                return true;
+            }
 
-			mWindows.Add(new Window(hWnd));
+            mWindows.Add(new Window(hWnd));
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 }

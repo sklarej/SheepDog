@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -30,28 +30,28 @@ using System.Diagnostics;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Base class for all classes that require access to a service provider.
-	/// </summary>
-	public class BaseControl
-	{
-		private readonly IServiceProvider _serviceProvider;
+    /// <summary>
+    /// Base class for all classes that require access to a service provider.
+    /// </summary>
+    public class BaseControl
+    {
+        private readonly IServiceProvider _serviceProvider;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="BaseControl"/> class.
-		/// </summary>
-		public BaseControl(IServiceProvider serviceProvider)
-		{
-			_serviceProvider = serviceProvider;
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="BaseControl"/> class.
+        /// </summary>
+        public BaseControl(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
-		/// <summary>
-		/// Gets the specified services from the service provider.
-		/// </summary>
-		[DebuggerStepThrough]
-		protected object GetService(Type serviceType)
-		{
-			return _serviceProvider.GetService(serviceType);
-		}
-	}
+        /// <summary>
+        /// Gets the specified services from the service provider.
+        /// </summary>
+        [DebuggerStepThrough]
+        protected object GetService(Type serviceType)
+        {
+            return _serviceProvider.GetService(serviceType);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -29,38 +29,38 @@ using System;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Contains all the logic for running the application as a command line
-	/// program.
-	/// </summary>
-	public class CommandLineController
-	{
-		private readonly CommandLineParser _commandLineParser;
+    /// <summary>
+    /// Contains all the logic for running the application as a command line
+    /// program.
+    /// </summary>
+    public class CommandLineController
+    {
+        private readonly CommandLineParser _commandLineParser;
 
-		/// <summary>
-		/// Creates a new instance of the <see cref="CommandLineController"/> class.
-		/// </summary>
-		/// <param name="arguments">Arguments that were passed to the application.</param>
-		public CommandLineController(String[] arguments)
-		{
-			_commandLineParser = new CommandLineParser(arguments);
-		}
+        /// <summary>
+        /// Creates a new instance of the <see cref="CommandLineController"/> class.
+        /// </summary>
+        /// <param name="arguments">Arguments that were passed to the application.</param>
+        public CommandLineController(String[] arguments)
+        {
+            _commandLineParser = new CommandLineParser(arguments);
+        }
 
-		/// <summary>
-		/// Attempts to run the application as a command line application.  If it
-		/// is supposed to run in normal (system tray) mode, then this does not do
-		/// anything and returns false.  It returns true if the application was run
-		/// in command line mode.
-		/// </summary>
-		public Boolean Run()
-		{
-			if (_commandLineParser.RepositionNow)
-			{
-				OffScreenWindowRepositioner.RepositionWindows();
-				return true;
-			}
+        /// <summary>
+        /// Attempts to run the application as a command line application.  If it
+        /// is supposed to run in normal (system tray) mode, then this does not do
+        /// anything and returns false.  It returns true if the application was run
+        /// in command line mode.
+        /// </summary>
+        public Boolean Run()
+        {
+            if (_commandLineParser.RepositionNow)
+            {
+                OffScreenWindowRepositioner.RepositionWindows();
+                return true;
+            }
 
-			return false;
-		}
-	}
+            return false;
+        }
+    }
 }

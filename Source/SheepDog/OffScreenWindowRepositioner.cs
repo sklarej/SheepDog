@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -34,84 +34,90 @@ using System.Windows.Forms;
 
 namespace SheepDog
 {
-	/// <summary>
-	/// Utility class which will contains the main logic for repositioning 
-	/// visible top top-level windows that are currently off-screen.
-	/// </summary>
-	public static class OffScreenWindowRepositioner
-	{
-		/// <summary>
-		/// Number of pixels that a window is allowed to be off-screen before
-		/// this class consider it for repositioning.  This prevents repositioning
-		/// of windows that are right over the edge of the screen (ones that the
-		/// user wouldn't have a problem repositioning if they wanted to.
-		/// </summary>
-		const int OffscreenMargin = 10;
+    /// <summary>
+    /// Utility class which will contains the main logic for repositioning 
+    /// visible top top-level windows that are currently off-screen.
+    /// </summary>
+    public static class OffScreenWindowRepositioner
+    {
+        /// <summary>
+        /// Number of pixels that a window is allowed to be off-screen before
+        /// this class consider it for repositioning.  This prevents repositioning
+        /// of windows that are right over the edge of the screen (ones that the
+        /// user wouldn't have a problem repositioning if they wanted to.
+        /// </summary>
+        private const int OffscreenMargin = 10;
 
-		/// <summary>
-		/// Repositions all visible top-level windows that are currently
-		/// off-screen to a position that is visible to the user.
-		/// </summary>
-		public static int RepositionWindows()
-		{
-			int repositionedWindowCount = 0;
-			WindowLister windowLister = new WindowLister();
-			IList<Window> windows = windowLister.GetVisibleWindows();
+        /// <summary>
+        /// Repositions all visible top-level windows that are currently
+        /// off-screen to a position that is visible to the user.
+        /// </summary>
+        public static int RepositionWindows()
+        {
+            return RepositionWindowsOutsideOfScreens(Point.Empty);
+        }
 
-			foreach (var window in windows)
-			{
-				if ((window.IsMaximized == false) && (IsWindowOffScreen(window)))
-				{
-					Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "Repositioning window {0:X8} : {1}", window.Handle.ToInt32(), window.Title));
+        private static int RepositionWindowsOutsideOfScreens(Point windowRepositionLocation)
+        {
+            WindowLister windowLister = new WindowLister();
+            IList<Window> windows = windowLister.GetVisibleWindows();
 
-					window.SetPosition(Point.Empty);
-					repositionedWindowCount++;
-				}
-			}
+            int repositionedWindowCount = 0;
 
-			return repositionedWindowCount;
-		}
+            foreach (var window in windows)
+            {
+                if ((window.IsMaximized == false) && (IsWindowOffScreen(window)))
+                {
+                    Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "Repositioning window {0:X8} : {1}", window.Handle.ToInt32(), window.Title));
 
-		/// <summary>
-		/// Indicates whether a portion of the specified window resides off-screen.
-		/// </summary>
-		public static Boolean IsWindowOffScreen(Window window)
-		{
-			Rectangle windowRectangle = window.ScreenRectangle;
+                    window.SetPosition(windowRepositionLocation);
+                    repositionedWindowCount++;
+                }
+            }
 
-			//Ignore certain hidden windows
-			if ((windowRectangle.X == -32000) && (windowRectangle.Y == -32000))
-			{
-				return false;
-			}
+            return repositionedWindowCount;
+        }
 
-			//Get the rectangle for the area of the window to test.  We reduce the size of the
-			//window's area to test, so that we don't reposition windows that are only slightly
-			//offscreen.
-			Rectangle testRectangle = window.ScreenRectangle;
-			testRectangle.Inflate(-OffscreenMargin, -OffscreenMargin);
+        /// <summary>
+        /// Indicates whether a portion of the specified window resides off-screen.
+        /// </summary>
+        public static Boolean IsWindowOffScreen(Window window)
+        {
+            Rectangle windowRectangle = window.ScreenRectangle;
+
+            //Ignore certain hidden windows
+            if ((windowRectangle.X == -32000) && (windowRectangle.Y == -32000))
+            {
+                return false;
+            }
+
+            //Get the rectangle for the area of the window to test.  We reduce the size of the
+            //window's area to test, so that we don't reposition windows that are only slightly
+            //offscreen.
+            Rectangle testRectangle = windowRectangle;
+            testRectangle.Inflate(-OffscreenMargin, -OffscreenMargin);
 
             using (Region offScreenRegion = GetOffScreenRegion())
             {
-                //Return whether any of the window was off-screen
+                //Return whether any portion of the window was off-screen
                 return offScreenRegion.IsVisible(testRectangle);
             }
-		}
+        }
 
-		/// <summary>
-		/// Gets a <see cref="Region"/> that represents all off-screen area.
-		/// </summary>
-		private static Region GetOffScreenRegion()
-		{
-			Region region = new Region();
-			region.MakeInfinite();
+        /// <summary>
+        /// Gets a <see cref="Region"/> that represents all off-screen area.
+        /// </summary>
+        private static Region GetOffScreenRegion()
+        {
+            Region region = new Region();
+            region.MakeInfinite();
 
-			foreach (Screen screen in Screen.AllScreens)
-			{
-				region.Exclude(screen.Bounds);
-			}
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                region.Exclude(screen.Bounds);
+            }
 
             return region;
-		}
-	}
+        }
+    }
 }

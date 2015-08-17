@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Josh Sklare
+Copyright (c) 2009 Joshua Sklare
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -28,15 +28,15 @@ using System.Runtime.InteropServices;
 
 namespace SheepDog.WindowsApi
 {
-	/// <summary>
-	/// Collection of imported methods and constants related to kernel32.dll.
-	/// </summary>
-	public static class Kernel32
-	{
-		[DllImport("kernel32", SetLastError = true)]
-		public static extern short GlobalAddAtom(string lpString);
+    /// <summary>
+    /// Collection of imported methods and constants related to kernel32.dll.
+    /// </summary>
+    public static class Kernel32
+    {
+        [DllImport("kernel32", SetLastError = true)]
+        public static extern short GlobalAddAtom(string lpString);
 
-		[DllImport("kernel32", SetLastError = true)]
-		public static extern short GlobalDeleteAtom(short nAtom);
-	}
+        [DllImport("kernel32", SetLastError = true)]
+        public static extern short GlobalDeleteAtom(short nAtom);
+    }
 }
