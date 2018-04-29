@@ -274,7 +274,7 @@ namespace SheepDog
 
         #endregion
 
-        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
         }

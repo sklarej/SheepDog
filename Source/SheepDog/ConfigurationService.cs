@@ -114,12 +114,7 @@ namespace SheepDog
         /// </summary>
         private void RaiseSavedEvent()
         {
-            EventHandler eventHandler = _savedEvent;
-
-            if (eventHandler != null)
-            {
-                eventHandler(this, EventArgs.Empty);
-            }
+            _savedEvent?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

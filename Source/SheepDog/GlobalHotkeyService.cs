@@ -129,12 +129,7 @@ namespace SheepDog
         /// <param name="hotkey"></param>
         private void RaiseHotkeyChangedEvent(Hotkey hotkey)
         {
-            EventHandler<HotkeyChangedEventArgs> eventHandler = _hotkeyChangedEvent;
-
-            if (eventHandler != null)
-            {
-                eventHandler(this, new HotkeyChangedEventArgs(hotkey));
-            }
+            _hotkeyChangedEvent?.Invoke(this, new HotkeyChangedEventArgs(hotkey));
         }
 
         /// <summary>

@@ -82,9 +82,7 @@ namespace SheepDog
         {
             get
             {
-                User32.RECT rectangle;
-
-                if (User32.GetWindowRect(_handle, out rectangle) == false)
+                if (User32.GetWindowRect(_handle, out User32.RECT rectangle) == false)
                 {
                     return new Rectangle();
                 }
