@@ -1,0 +1,2 @@
+..\Documentation\readme.txt
+..\SheepDog\bin\Debug\SheepDog.exe

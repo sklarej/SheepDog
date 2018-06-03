@@ -1,0 +1,6 @@
+obj\Debug\SheepDogSetup.wixobj
+C:\Users\Josh\Source\Repos\SheepDog\Source\Setup\bin\Debug\SheepDogSetup.msi
+C:\Users\Josh\Source\Repos\SheepDog\Source\Setup\bin\Debug\SheepDogSetup.wixpdb
+obj\Debug\SheepDogSetup.wixproj.BindContentsFileListen-US.txt
+obj\Debug\SheepDogSetup.wixproj.BindOutputsFileListen-US.txt
+obj\Debug\SheepDogSetup.wixproj.BindBuiltOutputsFileListen-US.txt

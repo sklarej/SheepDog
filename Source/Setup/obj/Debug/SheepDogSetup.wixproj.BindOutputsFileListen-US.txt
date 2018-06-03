@@ -1,0 +1,2 @@
+C:\Users\Josh\Source\Repos\SheepDog\Source\Setup\bin\Debug\SheepDogSetup.msi
+C:\Users\Josh\Source\Repos\SheepDog\Source\Setup\bin\Debug\SheepDogSetup.wixpdb
