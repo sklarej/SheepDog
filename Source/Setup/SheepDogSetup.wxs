@@ -34,6 +34,11 @@
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?define SheepDogBinPath = "..\SheepDog\bin\$(var.Configuration)" ?>
+  <?ifdef $(env.IsTfsBuildAgent) ?>
+    <?define SheepDogBinPath = "$(var.OutputPath)" ?>
+  <?endif ?>
+
   <Product Id="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4" 
            UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
            Name="SheepDog 1.0"
@@ -61,7 +66,7 @@
             <File
               Id="SheepDog.exe"
               Name="SheepDog.exe"
-              Source="..\SheepDog\bin\$(var.Configuration)\"
+              Source="$(var.SheepDogBinPath)\"
               KeyPath="yes">
               <Shortcut
                 Id="SheepDogStartupShortcut"
@@ -77,7 +82,7 @@
                 WorkingDirectory="INSTALLLOCATION"
                 Advertise="yes"
                 Icon="SheepDog.exe">
-                <Icon Id="SheepDog.exe" SourceFile="..\SheepDog\bin\$(var.Configuration)\SheepDog.exe"/>
+                <Icon Id="SheepDog.exe" SourceFile="$(var.SheepDogBinPath)\SheepDog.exe"/>
               </Shortcut>
             </File>
             <File
