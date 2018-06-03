@@ -6,3 +6,7 @@
 /Source/SheepDog/bin/Debug
 /Source/.vs/SheepDog/v15
 /Source/packages/WiX.3.11.1
+/Source/Setup/bin/Release
+/Source/Setup/obj/Release
+/Source/SheepDog/obj/Release
+/Source/SheepDog/bin/Release
