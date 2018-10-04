@@ -1,7 +1,7 @@
 ﻿#region MIT License
 /*
 MIT License
-Copyright (c) 2009 Joshua Sklare
+Copyright (c) 2009-2018 Joshua Sklare
 http://www.codeplex.com/SheepDog
 
 Permission is hereby granted, free of charge, to any person obtaining
