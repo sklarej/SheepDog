@@ -3,6 +3,8 @@
 ## Introduction
 SheepDog is a free utility for repositioning off-screen windows.
 
+![SheepDog Screenshot](/Documentation/IntroductionScreenshot.png)
+
 ## Where can I get it?
 The latest version of SheepDog is avaliable here:
 https://github.com/sklarej/SheepDog/releases/download/v1.1.4/SheepDog.Setup.1.1.4.msi
