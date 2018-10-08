@@ -122,7 +122,7 @@ namespace SheepDog
 
             if (String.IsNullOrEmpty(hotkeyText) == false)
             {
-                trayTooltip += "\n\nHoykey: " + hotkeyText;
+                trayTooltip += "\n" + hotkeyText;
             }
 
             notifyIcon.Text = trayTooltip;
