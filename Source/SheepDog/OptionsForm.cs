@@ -162,15 +162,15 @@ namespace SheepDog
             comboBoxKey.Enabled = enabled;
             labelPlus.Enabled = enabled;
 
-            bool validHotkey = false;
+            bool hasInvalidHotkey = false;
 
             if (checkBoxHotkeyEnabled.Checked)
             {
-                validHotkey = IsHotkeyAvailable();
+                hasInvalidHotkey = !IsHotkeyAvailable();
             }
 
-            panelInvalidHotkey.Visible = !validHotkey;
-            buttonClose.Enabled = validHotkey;
+            panelInvalidHotkey.Visible = hasInvalidHotkey;
+            buttonClose.Enabled = !hasInvalidHotkey;
         }
 
         /// <summary>
