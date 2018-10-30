@@ -1,7 +1,9 @@
-# SheepDog
+# SheepDog - Off-Screen Window Manager
 
 ## Introduction
 SheepDog is a free utility for repositioning off-screen windows.
+
+![SheepDog Screenshot](/Documentation/IntroductionScreenshot.png)
 
 ## Where can I get it?
 The latest version of SheepDog is avaliable here:
