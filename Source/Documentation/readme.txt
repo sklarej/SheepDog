@@ -1,6 +1,6 @@
-SheepDog 1.0 Readme
-December 4, 2009
-http://www.codeplex.com/SheepDog
+SheepDog 1.1 Readme
+October 30, 2018
+https://github.com/sklarej/SheepDog
 
 ===============================================================================
 DESCRIPTION
@@ -60,8 +60,10 @@ There are 2 ways to install SheepDog:
 ===============================================================================
 SYSTEM REQUIREMENTS
 
-* Windows 2000, Windows XP, Windows Vista, Windows 7, Windows Server 2003,
-  or Windows Server 2008 (32-bit and 64-bit for all versions)
+* Windows 2000, Windows XP, Windows Vista, Windows 7, Windows 10, 
+  Windows Server 2003, Windows Server 2008, Windows Server 2012, 
+  Windows Server 2016, or Windows Server 2019 
+  (32-bit and 64-bit for all versions)
 
 * Microsoft .NET Framework 2.0 or greater
 
@@ -72,7 +74,7 @@ LICENSING
 SheepDog has been released under the MIT License.  All the source code is 
 available for download at:
   
-  http://www.codeplex.com/SheepDog
+  https://github.com/sklarej/SheepDog
 
 In a nutshell, the MIT License permits you to download and use the code however
 you like.  You can use the source code, either modified or in it's original form,
