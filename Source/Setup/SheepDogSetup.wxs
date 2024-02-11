@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+﻿<!--
   MIT License
-  Copyright (c) 2009-2018 Joshua Sklare
+  Copyright (c) 2009-2024 Joshua Sklare
   http://www.codeplex.com/SheepDog
 
   Permission is hereby granted, free of charge, to any person obtaining
@@ -24,30 +23,30 @@
   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 <!--
-  This is the file which defines the setup package for SheepDog.  It's
-  been tested with WiX 3.11 (http://wixtoolset.org/).  The SheepDogSetup
-  solution can be built within Visual Studio 2017 if you have WiX 
-  installed.  You must build the SheepDog solution prior to building this
-  solution, so that all binaries have been created for the setup package
-  to include.
+  This is the file which defines the setup package for SheepDog. It's
+  been tested with WiX 4.0.4 (http://wixtoolset.org/). The SheepDogSetup
+  solution can be built within Visual Studio 2022 if you have the
+  FireGiant Heatwave Visual Studio extension installed (available at
+  https://marketplace.visualstudio.com/items?itemName=FireGiant.FireGiantHeatWaveDev17.
+  You must build the SheepDog solution prior to building this project,
+  so that all binaries have been created for the setup package to include.
 -->
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <?define SheepDogBinPath = "..\SheepDog\bin\$(var.Configuration)" ?>
   <?ifdef $(env.IsTfsBuildAgent) ?>
-    <?define SheepDogBinPath = "$(var.OutputPath)" ?>
-  <?endif ?>
+  <?define SheepDogBinPath = "$(var.OutputPath)" ?>
+  <?endif?>
 
-  <Product Id="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4" 
-           UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
-           Name="SheepDog !(bind.fileVersion.SheepDog.exe)"
-           Language="1033"
-           Version="!(bind.fileVersion.SheepDog.exe)"
-           Manufacturer="Joshua Sklare" >
-    <Package InstallerVersion="200"
-             Compressed="yes"
-             Description="SheepDog !(bind.fileVersion.SheepDog.exe)"
-             Comments="Setup package for SheepDog.  SheepDog is a free utility for repositioning off-screen windows.  Learn more at http://www.codeplex.com/SheepDog" />
+  <Package
+    UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
+    Name="SheepDog !(bind.fileVersion.SheepDog.exe)"
+    Language="1033"
+    Version="!(bind.fileVersion.SheepDog.exe)"
+    Manufacturer="Joshua Sklare"
+    InstallerVersion="200"
+    ProductCode="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4">
+
+    <SummaryInformation Description="SheepDog !(bind.fileVersion.SheepDog.exe)" />
 
     <Media Id="1" Cabinet="SheepDogSetUp.cab" EmbedCab="yes" />
 
@@ -58,70 +57,24 @@
     <!--
       Defines all the files, directories, and shortcuts installed with SheepDog.
     -->
-    <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLLOCATION" Name="SheepDog">
-          <Component Id="ProductComponent" Guid="A9B22BF7-2056-4a20-8ED1-82B3850387C0">
-            <File
-              Id="SheepDog.exe"
-              Name="SheepDog.exe"
-              Source="$(var.SheepDogBinPath)\"
-              KeyPath="yes">
-              <Shortcut
-                Id="SheepDogStartupShortcut"
-                Directory="StartupFolder"
-                Name="SheepDog"
-                WorkingDirectory="INSTALLLOCATION"
-                Advertise="yes"
-                Icon="SheepDog.exe"/>
-              <Shortcut
-                Id="SheepDogProgramMenuShortcut"
-                Directory="SheepDogProgramMenuFolder"
-                Name="SheepDog"
-                WorkingDirectory="INSTALLLOCATION"
-                Advertise="yes"
-                Icon="SheepDog.exe">
-                <Icon Id="SheepDog.exe" SourceFile="$(var.SheepDogBinPath)\SheepDog.exe"/>
-              </Shortcut>
-            </File>
-            <File
-              Id="readme.txt"
-              Name="readme.txt"
-              Source="..\Documentation\"/>
-
-            <RemoveFolder
-              Id="RemoveShorcutFolder"
-              On="uninstall"
-              Directory="SheepDogProgramMenuFolder"/>
-          </Component>
-        </Directory>
-      </Directory>
-
-      <Directory Id="ProgramMenuFolder" Name="PMenu">
-        <Directory Id="StartupFolder"/>
-        <Directory Id="SheepDogProgramMenuFolder" Name="SheepDog"/>
-      </Directory>
-    </Directory>
 
     <!--
       Loads in the custom license that is displayed when installing SheepDog.
       -->
-    <WixVariable Id='WixUILicenseRtf' Value='License.rtf' />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
 
     <!--
       Loads in the UI provided with WiX that allows the user to choose the
       directory to install to.
       -->
-    <UIRef Id="WixUI_InstallDir"/>
+    <ui:WixUI Id="WixUI_InstallDir" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
 
     <!--
-      Ensure that the .NET Framework 2.0 is installed.
+      Ensure that the .NET Framework 4.8 is installed.
       -->
-    <PropertyRef Id="NETFRAMEWORK20"/>
-    <Condition Message="The .NET Framework 2.0 must be installed before SheepDog can be installed.  You can download the .NET Framework at: http://msdn.microsoft.com/netframework">
-      Installed OR NETFRAMEWORK20
-    </Condition>
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_48_OR_LATER_INSTALLED" />
+    <Launch Condition="Installed OR WIX_IS_NETFRAMEWORK_48_OR_LATER_INSTALLED" Message="The .NET Framework 4.8 must be installed before SheepDog can be installed.  You can download the .NET Framework at: https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48" />
 
     <!--
       This custom action ensures that SheepDog is closed before the installation is
@@ -132,7 +85,7 @@
       CloseMessage="yes"
       Target="SheepDog.exe"
       RebootPrompt="no"
-      Description="SheepDog is running and needs to be closed"/>
+      Description="SheepDog is running and needs to be closed" />
 
     <!--
       This custom action ensures that the application is started after an installation
@@ -140,19 +93,49 @@
       -->
     <CustomAction
       Id="StartAppOnExit"
-      FileKey="SheepDog.exe"
+      FileRef="SheepDog.exe"
       ExeCommand=""
       Execute="immediate"
       Impersonate="yes"
       Return="asyncNoWait" />
 
     <!--
-      Defines the custom actions for starting and stopping SheepDog in the 
-      install sequence.
+      Defines the custom actions for starting and stopping SheepDog in the install sequence.
       -->
     <InstallExecuteSequence>
-      <Custom Action="WixCloseApplications" Before="InstallInitialize" />
+      <Custom Action="Wix4CloseApplications_X86" Before="InstallInitialize" />
       <Custom Action="StartAppOnExit" After="InstallFinalize" />
     </InstallExecuteSequence>
-  </Product>
+
+    <StandardDirectory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLLOCATION" Name="SheepDog">
+        <Component Id="ProductComponent" Guid="A9B22BF7-2056-4a20-8ED1-82B3850387C0">
+          <File Id="SheepDog.exe" Name="SheepDog.exe" Source="$(var.SheepDogBinPath)\" KeyPath="yes">
+            <Shortcut Id="SheepDogStartupShortcut" Directory="StartupFolder" Name="SheepDog" WorkingDirectory="INSTALLLOCATION" Advertise="yes" Icon="SheepDog.exe" />
+            <Shortcut Id="SheepDogProgramMenuShortcut" Directory="SheepDogProgramMenuFolder" Name="SheepDog" WorkingDirectory="INSTALLLOCATION" Advertise="yes" Icon="SheepDog.exe">
+              <Icon Id="SheepDog.exe" SourceFile="$(var.SheepDogBinPath)\SheepDog.exe" />
+            </Shortcut>
+          </File>
+
+          <File Id="readme.txt" Name="readme.txt" Source="..\Documentation\" />
+
+          <RemoveFolder Id="RemoveShorcutFolder" On="uninstall" Directory="SheepDogProgramMenuFolder" />
+        </Component>
+      </Directory>
+    </StandardDirectory>
+
+	<!--
+	  Reference to the Program Menu folder. We put a shortcut to SheepDog under a SheepDog folder here,
+	  so that it will show up on the user's Windows Program/Start Menu.
+	-->
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="SheepDogProgramMenuFolder" Name="SheepDog" />
+    </StandardDirectory>
+
+	<!--
+	  Reference to the Startup Folder. We put a shortcut to SheepDog here so that it will start
+	  up when the system starts up.
+	-->
+    <StandardDirectory Id="StartupFolder" />
+  </Package>
 </Wix>
