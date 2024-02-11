@@ -1,18 +1,4 @@
 ﻿<Project Sdk="WixToolset.Sdk/4.0.4">
-  <PropertyGroup>
-    <Cultures>en-US</Cultures>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
-    <Cultures>en-US</Cultures>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <IntermediateOutputPath>obj\Release\</IntermediateOutputPath>
-    <Cultures>en-US</Cultures>
-  </PropertyGroup>
   <ItemGroup>
     <None Include="License.rtf" />
   </ItemGroup>
