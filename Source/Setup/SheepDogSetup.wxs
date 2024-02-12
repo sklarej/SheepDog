@@ -40,7 +40,7 @@
     Language="1033"
     Version="!(bind.fileVersion.SheepDog.exe)"
     Manufacturer="Joshua Sklare"
-    InstallerVersion="200"
+    InstallerVersion="500"
     ProductCode="8ddd8a6e-c353-4489-9935-63b8f0e4c6c4">
 
     <SummaryInformation Description="SheepDog !(bind.fileVersion.SheepDog.exe)" />
@@ -50,10 +50,6 @@
     <Feature Id="ProductFeature" Title="SheepDog" Level="1">
       <ComponentRef Id="ProductComponent" />
     </Feature>
-
-    <!--
-      Defines all the files, directories, and shortcuts installed with SheepDog.
-    -->
 
     <!--
       Loads in the custom license that is displayed when installing SheepDog.
@@ -104,6 +100,9 @@
       <Custom Action="StartAppOnExit" After="InstallFinalize" />
     </InstallExecuteSequence>
 
+	<!--
+      Defines all the files, directories, and shortcuts installed with SheepDog.
+    -->
     <StandardDirectory Id="ProgramFilesFolder">
       <Directory Id="INSTALLLOCATION" Name="SheepDog">
         <Component Id="ProductComponent" Guid="A9B22BF7-2056-4a20-8ED1-82B3850387C0">
