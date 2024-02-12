@@ -32,10 +32,7 @@
   so that all binaries have been created for the setup package to include.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-  <?define SheepDogBinPath = "..\SheepDog\bin\$(var.Configuration)" ?>
-  <?ifdef $(env.IsTfsBuildAgent) ?>
-  <?define SheepDogBinPath = "$(var.OutputPath)" ?>
-  <?endif?>
+  <?define SheepDogBinPath = "..\SheepDog\bin\$(var.Configuration)\net4.8" ?>
 
   <Package
     UpgradeCode="8e01ab03-62bd-41aa-9a73-8dad76e58976"
